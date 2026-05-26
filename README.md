@@ -1,5 +1,11 @@
 # Desafio Mirante - Pipeline Hibrido SQL para Python
 
+
+Desafio proposto pela Mirante para atualização de procedures para python 3.14 e usando langgraph e deterministico
+
+Foi feito criado um projeto usando SDD e o codex .specs disponivel para analise das specs geradas.
+
+
 Pipeline local para modernizar stored procedures PL/pgSQL em wrappers Python 3.14, usando etapas deterministicas e grafo LangGraph.
 
 ## Arquitetura
