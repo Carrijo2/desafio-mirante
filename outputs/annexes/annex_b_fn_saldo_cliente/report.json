@@ -1,0 +1,96 @@
+{
+  "stages": {
+    "parsing": {
+      "status": "ok",
+      "parser": "sqlparse",
+      "statement_count": 1,
+      "confidence": 0.95,
+      "limitations": [
+        "Token-based parser; PL/pgSQL block semantics are enriched in semantic analysis."
+      ]
+    },
+    "semantic_analysis": {
+      "status": "ok",
+      "routine": {
+        "kind": "function",
+        "name": "fn_saldo_cliente"
+      },
+      "parameters": [
+        {
+          "name": "p_cliente_id",
+          "type": "BIGINT",
+          "direction": "IN"
+        }
+      ],
+      "variables": [
+        {
+          "name": "v_total",
+          "type": "NUMERIC(18,2)",
+          "default": null
+        }
+      ],
+      "constructs": {
+        "cursor": false,
+        "exception_block": false,
+        "raise": false,
+        "cte": false,
+        "recursive_cte": false,
+        "jsonb": false,
+        "for_update": false,
+        "return_query": false,
+        "get_diagnostics": false,
+        "transactional_writes": false,
+        "nested_fn_saldo_cliente": true
+      },
+      "risks": [],
+      "confidence": 0.95
+    },
+    "generation": {
+      "status": "ok",
+      "routine_name": "fn_saldo_cliente",
+      "strategy": "deterministic_fallback",
+      "ai_provider": "disabled",
+      "ai_model": "gpt-4.1-mini",
+      "ai_unavailable_reason": "AI_PROVIDER is disabled.",
+      "preferred_ai_due_to_low_confidence": false,
+      "context_keys": [
+        "confidence",
+        "errors",
+        "parsed_representation",
+        "schema_context",
+        "semantic_findings",
+        "source_code"
+      ],
+      "decisions": [
+        "Generated code uses a Python wrapper around explicit SQL delegation.",
+        "This preserves database semantics for PL/pgSQL constructs that are risky to rewrite quickly.",
+        "The prompt/context boundary is represented by parsed_representation and semantic_findings."
+      ],
+      "prompt": {
+        "version": "sql-to-python-modernization-v1",
+        "length": 4096,
+        "metadata": {
+          "prompt_version": "sql-to-python-modernization-v1",
+          "has_schema_context": true,
+          "confidence": {
+            "parsing": 0.95,
+            "semantic_analysis": 0.95,
+            "reasons": []
+          }
+        }
+      }
+    },
+    "validation": {
+      "status": "ok",
+      "ast_parse": true,
+      "errors": [],
+      "repair_attempted": false
+    }
+  },
+  "decisions": [
+    "Generated code uses a Python wrapper around explicit SQL delegation.",
+    "This preserves database semantics for PL/pgSQL constructs that are risky to rewrite quickly.",
+    "The prompt/context boundary is represented by parsed_representation and semantic_findings."
+  ],
+  "risks": []
+}

@@ -1,0 +1,128 @@
+{
+  "stages": {
+    "parsing": {
+      "status": "ok",
+      "parser": "sqlparse",
+      "statement_count": 1,
+      "confidence": 0.95,
+      "limitations": [
+        "Token-based parser; PL/pgSQL block semantics are enriched in semantic analysis."
+      ]
+    },
+    "semantic_analysis": {
+      "status": "ok",
+      "routine": {
+        "kind": "procedure",
+        "name": "sp_transferir_entre_contas"
+      },
+      "parameters": [
+        {
+          "name": "p_conta_origem",
+          "type": "BIGINT",
+          "direction": "IN"
+        },
+        {
+          "name": "p_conta_destino",
+          "type": "BIGINT",
+          "direction": "IN"
+        },
+        {
+          "name": "p_valor",
+          "type": "NUMERIC(18",
+          "direction": "IN"
+        }
+      ],
+      "variables": [
+        {
+          "name": "v_saldo_origem",
+          "type": "NUMERIC(18,2)",
+          "default": null
+        },
+        {
+          "name": "v_status_origem",
+          "type": "VARCHAR(20)",
+          "default": null
+        },
+        {
+          "name": "v_status_destino",
+          "type": "VARCHAR(20)",
+          "default": null
+        }
+      ],
+      "constructs": {
+        "cursor": false,
+        "exception_block": true,
+        "raise": true,
+        "cte": false,
+        "recursive_cte": false,
+        "jsonb": true,
+        "for_update": true,
+        "return_query": false,
+        "get_diagnostics": false,
+        "transactional_writes": true,
+        "nested_fn_saldo_cliente": false
+      },
+      "risks": [
+        "FOR UPDATE requires preserving locking and transaction semantics.",
+        "RAISE statements need Python exception/logging mapping.",
+        "JSONB construction needs Python dict or SQL delegation decision.",
+        "Exception blocks need fallback or audit behavior in Python."
+      ],
+      "confidence": 0.95
+    },
+    "generation": {
+      "status": "ok",
+      "routine_name": "sp_transferir_entre_contas",
+      "strategy": "deterministic_fallback",
+      "ai_provider": "disabled",
+      "ai_model": "gpt-4.1-mini",
+      "ai_unavailable_reason": "AI_PROVIDER is disabled.",
+      "preferred_ai_due_to_low_confidence": false,
+      "context_keys": [
+        "confidence",
+        "errors",
+        "parsed_representation",
+        "schema_context",
+        "semantic_findings",
+        "source_code"
+      ],
+      "decisions": [
+        "Generated code uses a Python wrapper around explicit SQL delegation.",
+        "This preserves database semantics for PL/pgSQL constructs that are risky to rewrite quickly.",
+        "The prompt/context boundary is represented by parsed_representation and semantic_findings.",
+        "Database exception behavior is surfaced as Python exceptions from the DB driver."
+      ],
+      "prompt": {
+        "version": "sql-to-python-modernization-v1",
+        "length": 5701,
+        "metadata": {
+          "prompt_version": "sql-to-python-modernization-v1",
+          "has_schema_context": true,
+          "confidence": {
+            "parsing": 0.95,
+            "semantic_analysis": 0.95,
+            "reasons": []
+          }
+        }
+      }
+    },
+    "validation": {
+      "status": "ok",
+      "ast_parse": true,
+      "errors": [],
+      "repair_attempted": false
+    }
+  },
+  "decisions": [
+    "Generated code uses a Python wrapper around explicit SQL delegation.",
+    "This preserves database semantics for PL/pgSQL constructs that are risky to rewrite quickly.",
+    "The prompt/context boundary is represented by parsed_representation and semantic_findings.",
+    "Database exception behavior is surfaced as Python exceptions from the DB driver."
+  ],
+  "risks": [
+    "FOR UPDATE requires preserving locking and transaction semantics.",
+    "RAISE statements need Python exception/logging mapping.",
+    "JSONB construction needs Python dict or SQL delegation decision.",
+    "Exception blocks need fallback or audit behavior in Python."
+  ]
+}

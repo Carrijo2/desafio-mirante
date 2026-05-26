@@ -1,0 +1,105 @@
+{
+  "stages": {
+    "parsing": {
+      "status": "ok",
+      "parser": "sqlparse",
+      "statement_count": 1,
+      "confidence": 0.95,
+      "limitations": [
+        "Token-based parser; PL/pgSQL block semantics are enriched in semantic analysis."
+      ]
+    },
+    "semantic_analysis": {
+      "status": "ok",
+      "routine": {
+        "kind": "procedure",
+        "name": "sp_atualizar_status_contas_inativas"
+      },
+      "parameters": [
+        {
+          "name": "p_dias",
+          "type": "INT",
+          "direction": "IN"
+        },
+        {
+          "name": "p_afetadas",
+          "type": "INT",
+          "direction": "OUT"
+        }
+      ],
+      "variables": [],
+      "constructs": {
+        "cursor": false,
+        "exception_block": true,
+        "raise": true,
+        "cte": false,
+        "recursive_cte": false,
+        "jsonb": true,
+        "for_update": false,
+        "return_query": false,
+        "get_diagnostics": true,
+        "transactional_writes": true,
+        "nested_fn_saldo_cliente": false
+      },
+      "risks": [
+        "RAISE statements need Python exception/logging mapping.",
+        "JSONB construction needs Python dict or SQL delegation decision.",
+        "Exception blocks need fallback or audit behavior in Python."
+      ],
+      "confidence": 0.95
+    },
+    "generation": {
+      "status": "ok",
+      "routine_name": "sp_atualizar_status_contas_inativas",
+      "strategy": "deterministic_fallback",
+      "ai_provider": "disabled",
+      "ai_model": "gpt-4.1-mini",
+      "ai_unavailable_reason": "AI_PROVIDER is disabled.",
+      "preferred_ai_due_to_low_confidence": false,
+      "context_keys": [
+        "confidence",
+        "errors",
+        "parsed_representation",
+        "schema_context",
+        "semantic_findings",
+        "source_code"
+      ],
+      "decisions": [
+        "Generated code uses a Python wrapper around explicit SQL delegation.",
+        "This preserves database semantics for PL/pgSQL constructs that are risky to rewrite quickly.",
+        "The prompt/context boundary is represented by parsed_representation and semantic_findings.",
+        "Database exception behavior is surfaced as Python exceptions from the DB driver."
+      ],
+      "prompt": {
+        "version": "sql-to-python-modernization-v1",
+        "length": 4499,
+        "metadata": {
+          "prompt_version": "sql-to-python-modernization-v1",
+          "has_schema_context": true,
+          "confidence": {
+            "parsing": 0.95,
+            "semantic_analysis": 0.95,
+            "reasons": []
+          }
+        }
+      }
+    },
+    "validation": {
+      "status": "ok",
+      "ast_parse": true,
+      "errors": [],
+      "repair_attempted": false
+    }
+  },
+  "decisions": [
+    "Generated code uses a Python wrapper around explicit SQL delegation.",
+    "This preserves database semantics for PL/pgSQL constructs that are risky to rewrite quickly.",
+    "The prompt/context boundary is represented by parsed_representation and semantic_findings.",
+    "Database exception behavior is surfaced as Python exceptions from the DB driver."
+  ],
+  "risks": [
+    "RAISE statements need Python exception/logging mapping.",
+    "JSONB construction needs Python dict or SQL delegation decision.",
+    "Exception blocks need fallback or audit behavior in Python."
+  ]
+}

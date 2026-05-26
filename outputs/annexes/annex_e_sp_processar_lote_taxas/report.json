@@ -1,0 +1,144 @@
+{
+  "stages": {
+    "parsing": {
+      "status": "ok",
+      "parser": "sqlparse",
+      "statement_count": 1,
+      "confidence": 0.95,
+      "limitations": [
+        "Token-based parser; PL/pgSQL block semantics are enriched in semantic analysis."
+      ]
+    },
+    "semantic_analysis": {
+      "status": "ok",
+      "routine": {
+        "kind": "procedure",
+        "name": "sp_processar_lote_taxas"
+      },
+      "parameters": [
+        {
+          "name": "p_data_referencia",
+          "type": "DATE",
+          "direction": "IN"
+        }
+      ],
+      "variables": [
+        {
+          "name": "v_id",
+          "type": "BIGINT",
+          "default": null
+        },
+        {
+          "name": "v_origem",
+          "type": "BIGINT",
+          "default": null
+        },
+        {
+          "name": "v_tipo",
+          "type": "VARCHAR(20)",
+          "default": null
+        },
+        {
+          "name": "v_valor",
+          "type": "NUMERIC(18,2)",
+          "default": null
+        },
+        {
+          "name": "v_taxa",
+          "type": "NUMERIC(18,2)",
+          "default": null
+        },
+        {
+          "name": "v_percentual",
+          "type": "NUMERIC(7,4)",
+          "default": null
+        },
+        {
+          "name": "v_minimo",
+          "type": "NUMERIC(18,2)",
+          "default": null
+        },
+        {
+          "name": "v_total_taxas",
+          "type": "NUMERIC(18,2)",
+          "default": "0"
+        },
+        {
+          "name": "v_count",
+          "type": "INT",
+          "default": "0"
+        }
+      ],
+      "constructs": {
+        "cursor": true,
+        "exception_block": false,
+        "raise": false,
+        "cte": false,
+        "recursive_cte": false,
+        "jsonb": true,
+        "for_update": false,
+        "return_query": false,
+        "get_diagnostics": false,
+        "transactional_writes": true,
+        "nested_fn_saldo_cliente": false
+      },
+      "risks": [
+        "Explicit cursor may translate to N+1 queries if implemented naively.",
+        "JSONB construction needs Python dict or SQL delegation decision."
+      ],
+      "confidence": 0.95
+    },
+    "generation": {
+      "status": "ok",
+      "routine_name": "sp_processar_lote_taxas",
+      "strategy": "deterministic_fallback",
+      "ai_provider": "disabled",
+      "ai_model": "gpt-4.1-mini",
+      "ai_unavailable_reason": "AI_PROVIDER is disabled.",
+      "preferred_ai_due_to_low_confidence": false,
+      "context_keys": [
+        "confidence",
+        "errors",
+        "parsed_representation",
+        "schema_context",
+        "semantic_findings",
+        "source_code"
+      ],
+      "decisions": [
+        "Generated code uses a Python wrapper around explicit SQL delegation.",
+        "This preserves database semantics for PL/pgSQL constructs that are risky to rewrite quickly.",
+        "The prompt/context boundary is represented by parsed_representation and semantic_findings.",
+        "Cursor-heavy logic is not expanded into Python loops to avoid accidental N+1 behavior."
+      ],
+      "prompt": {
+        "version": "sql-to-python-modernization-v1",
+        "length": 6049,
+        "metadata": {
+          "prompt_version": "sql-to-python-modernization-v1",
+          "has_schema_context": true,
+          "confidence": {
+            "parsing": 0.95,
+            "semantic_analysis": 0.95,
+            "reasons": []
+          }
+        }
+      }
+    },
+    "validation": {
+      "status": "ok",
+      "ast_parse": true,
+      "errors": [],
+      "repair_attempted": false
+    }
+  },
+  "decisions": [
+    "Generated code uses a Python wrapper around explicit SQL delegation.",
+    "This preserves database semantics for PL/pgSQL constructs that are risky to rewrite quickly.",
+    "The prompt/context boundary is represented by parsed_representation and semantic_findings.",
+    "Cursor-heavy logic is not expanded into Python loops to avoid accidental N+1 behavior."
+  ],
+  "risks": [
+    "Explicit cursor may translate to N+1 queries if implemented naively.",
+    "JSONB construction needs Python dict or SQL delegation decision."
+  ]
+}

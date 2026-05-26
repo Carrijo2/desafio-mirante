@@ -1,0 +1,48 @@
+CREATE TABLE clientes (
+    id BIGSERIAL PRIMARY KEY,
+    nome VARCHAR(200) NOT NULL,
+    cpf CHAR(11) NOT NULL UNIQUE,
+    data_cadastro TIMESTAMP NOT NULL DEFAULT NOW(),
+    status VARCHAR(20) NOT NULL DEFAULT 'ATIVO'
+);
+
+CREATE TABLE contas (
+    id BIGSERIAL PRIMARY KEY,
+    cliente_id BIGINT NOT NULL REFERENCES clientes(id),
+    agencia VARCHAR(10) NOT NULL,
+    numero VARCHAR(20) NOT NULL,
+    tipo VARCHAR(20) NOT NULL,
+    saldo NUMERIC(18,2) NOT NULL DEFAULT 0,
+    status VARCHAR(20) NOT NULL DEFAULT 'ATIVA',
+    data_abertura TIMESTAMP NOT NULL DEFAULT NOW(),
+    UNIQUE (agencia, numero)
+);
+
+CREATE TABLE transacoes (
+    id BIGSERIAL PRIMARY KEY,
+    conta_origem_id BIGINT REFERENCES contas(id),
+    conta_destino_id BIGINT REFERENCES contas(id),
+    tipo VARCHAR(20) NOT NULL,
+    valor NUMERIC(18,2) NOT NULL CHECK (valor > 0),
+    data_transacao TIMESTAMP NOT NULL DEFAULT NOW(),
+    status VARCHAR(20) NOT NULL DEFAULT 'EFETIVADA'
+);
+
+CREATE TABLE taxas (
+    id BIGSERIAL PRIMARY KEY,
+    tipo_operacao VARCHAR(20) NOT NULL,
+    percentual NUMERIC(7,4) NOT NULL DEFAULT 0,
+    valor_minimo NUMERIC(18,2) NOT NULL DEFAULT 0,
+    vigente_de DATE NOT NULL,
+    vigente_ate DATE
+);
+
+CREATE TABLE log_auditoria (
+    id BIGSERIAL PRIMARY KEY,
+    entidade VARCHAR(50) NOT NULL,
+    entidade_id BIGINT,
+    acao VARCHAR(50) NOT NULL,
+    detalhes JSONB,
+    criado_em TIMESTAMP NOT NULL DEFAULT NOW()
+);
+
